@@ -8,7 +8,10 @@ pub const METADATA_LENGTH: usize = 2;
 /// metadata is used to store the number of bytes with the associated record. Thus, the maximum
 /// byte count for a single record is 2^([`METADATA_LENGTH`] * 8) - 2, since metadata `0x0000` is
 /// used to represent a tombstone value.
-pub const MAX_RECORD_LENGTH: usize = pow(2, METADATA_LENGTH * 8) - 2;
+pub const MAX_RECORD_LENGTH: usize = (1 << (METADATA_LENGTH * 8)) - 2;
+
+/// The tombstone value, which is stored in the metadata.
+pub const TOMBSTONE_VALUE: [u8; 2] = [0x00, 0x00];
 
 /// Encodes a slice of bytes into a representation suitable for on-disk storage. The resulting
 /// encoding is a vector bytes where the first [`METADATA_LENGTH`] bytes store the metadata
@@ -24,8 +27,9 @@ pub fn encode_bytes(input: &[u8]) -> Result<Vec<u8>> {
         )
         .into());
     }
-    let input_length = input.len() as u16;
-    encoded_bytes.extend_from_slice(&*input_length.to_be_bytes());
+
+    let input_length = (input.len() + 1) as u16;
+    encoded_bytes.extend_from_slice(&input_length.to_be_bytes());
     encoded_bytes.extend_from_slice(input);
     Ok(encoded_bytes)
 }
@@ -42,6 +46,7 @@ pub fn decode_length(metadata: &[u8]) -> Result<usize> {
         )
         .into());
     }
+
     let mut length = u16::from_be_bytes(metadata[..METADATA_LENGTH].try_into()?);
     if length >= 1 {
         length -= 1;
@@ -53,7 +58,7 @@ pub fn decode_length(metadata: &[u8]) -> Result<usize> {
 /// `None`. Otherwise, it returns a new copy of the decoded bytes.
 pub fn decode_bytes(encoded: &[u8]) -> Result<Option<Vec<u8>>> {
     let metadata = &encoded[..METADATA_LENGTH];
-    if metadata == vec![0x00, 0x00] {
+    if metadata == TOMBSTONE_VALUE {
         return Ok(None);
     }
 
