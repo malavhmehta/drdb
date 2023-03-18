@@ -8,3 +8,4 @@ learn more about SQL, database internals and distributed systems.
 
 ### Todo:
 - Everything else :)
+- 
