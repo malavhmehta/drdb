@@ -1,0 +1,13 @@
+Language: Cpp
+BasedOnStyle: Google
+SortIncludes: CaseInsensitive
+Standard: c++17
+ColumnLimit: 100
+IndentWidth: 8
+AccessModifierOffset: -4
+UseTab: Always
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: All
+AlwaysBreakAfterReturnType: All
