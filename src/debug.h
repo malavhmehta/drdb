@@ -9,7 +9,8 @@
 #endif
 
 template <typename... Args>
-std::string format(const std::string &fmt, Args... args)
+std::string
+format(const std::string &fmt, Args... args)
 {
 	int res_size = std::snprintf(nullptr, 0, fmt.c_str(), args...) + 1;
 	if (res_size <= 0)

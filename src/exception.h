@@ -8,7 +8,7 @@
 
 class Exception : public std::exception
 {
-    public:
+public:
 	template <typename... Args>
 	explicit Exception(const std::string& fmt, Args... args) : err(format(fmt, args...))
 	{
@@ -20,7 +20,7 @@ class Exception : public std::exception
 		return err.c_str();
 	}
 
-    private:
+private:
 	const std::string err;
 };
 

@@ -4,7 +4,7 @@ SortIncludes: CaseInsensitive
 Standard: c++17
 ColumnLimit: 100
 IndentWidth: 8
-AccessModifierOffset: -4
+AccessModifierOffset: -8
 UseTab: Always
 BreakBeforeBraces: Allman
 AllowShortIfStatementsOnASingleLine: false
