@@ -1,8 +1,10 @@
 <br/>
 
-<img src="https://i.ibb.co/cv6syVY/logo.png" alt="drdb"/>
+![drdb](https://i.ibb.co/cv6syVY/logo.png)
 
 ---
+
+![build result](https://github.com/malav-mehta/drdb/actions/workflows/cmake.yml/badge.svg)
 
 #### This project is a work in progress.
 
