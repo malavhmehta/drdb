@@ -6,22 +6,23 @@
 class Iterator
 {
 private:
-	bool is_valid;
+	bool valid;
 	Record value;
 
 	virtual bool
-	do_get_value(Record& ret_value) = 0;
+	do_get_next(Record& out_value) = 0;
 
 public:
 	virtual ~Iterator() = default;
 
-	explicit operator bool() const;
+	[[nodiscard]] bool
+	is_valid() const;
 
-	Record
-	operator*() const;
+	[[nodiscard]] Record
+	get_value() const;
 
 	void
-	operator++();
+	get_next();
 };
 
 #endif	// DRDB_ITERATOR_H

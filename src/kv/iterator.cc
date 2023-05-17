@@ -1,16 +1,20 @@
 #include "iterator.h"
 
-Iterator::operator bool() const { return is_valid; }
+bool
+Iterator::is_valid() const
+{
+	return valid;
+}
 
 Record
-Iterator::operator*() const
+Iterator::get_value() const
 {
 	return value;
 }
 
 void
-Iterator::operator++()
+Iterator::get_next()
 {
-	if (!do_get_value(value))
-		is_valid = false;
+	if (!do_get_next(value))
+		valid = false;
 }
