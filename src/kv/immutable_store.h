@@ -12,17 +12,17 @@ class ImmutableStore
 {
 private:
 	virtual bool
-	do_get(const Record& key, Record& out_value) = 0;
+	do_get(const Record& key, Record& out_value) const = 0;
 
-	virtual std::unique_ptr<Iterator>
-	do_scan(const Range& range) = 0;
+	[[nodiscard]] virtual std::unique_ptr<Iterator>
+	do_scan(const Range& range) const = 0;
 
 public:
 	bool
-	get(const Record& key, Record& out_value);
+	get(const Record& key, Record& out_value) const;
 
-	std::unique_ptr<Iterator>
-	scan(const Range& range);
+	[[nodiscard]] std::unique_ptr<Iterator>
+	scan(const Range& range) const;
 };
 
 #endif	// DRDB_IMMUTABLE_STORE_H
