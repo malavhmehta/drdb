@@ -2,7 +2,7 @@
 
 Iterator::operator bool() const { return is_valid; }
 
-std::vector<uint8_t>
+Record
 Iterator::operator*() const
 {
 	return value;

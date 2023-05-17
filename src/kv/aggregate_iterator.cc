@@ -7,6 +7,8 @@ AggregateIterator::AggregateIterator(std::vector<Iterator> _iters) : iters{std::
 		if (iters[i])
 			iter_heap.emplace(*iters[i], i);
 	}
+
+	++(*this);
 }
 
 bool

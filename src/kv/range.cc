@@ -1,19 +1,19 @@
 #include "range.h"
 
-std::vector<uint8_t>
+Record
 Range::get_start() const
 {
 	return start.key;
 }
 
-std::vector<uint8_t>
+Record
 Range::get_end() const
 {
 	return end.key;
 }
 
 Range::Ordering
-Range::compare(const std::vector<uint8_t> &key)
+Range::compare(const Record& key)
 {
 	if (start.type == Bound::Type::Prefix)
 	{

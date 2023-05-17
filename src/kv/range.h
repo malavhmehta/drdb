@@ -1,8 +1,7 @@
 #ifndef DRDB_RANGE_H
 #define DRDB_RANGE_H
 
-#include <cstdint>
-#include <vector>
+#include "../types.h"
 
 struct Bound
 {
@@ -14,7 +13,7 @@ struct Bound
 	};
 
 	Type type;
-	std::vector<uint8_t> key;
+	Record key;
 };
 
 class Range
@@ -32,14 +31,14 @@ class Range
 public:
 	Range(Bound start, Bound end) : start{std::move(start)}, end{std::move(end)} {}
 
-	[[nodiscard]] std::vector<uint8_t>
+	[[nodiscard]] Record
 	get_start() const;
 
-	[[nodiscard]] std::vector<uint8_t>
+	[[nodiscard]] Record
 	get_end() const;
 
 	Ordering
-	compare(const std::vector<uint8_t>& key);
+	compare(const Record& key);
 };
 
 #endif	// DRDB_RANGE_H
