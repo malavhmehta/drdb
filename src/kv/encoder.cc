@@ -34,16 +34,14 @@ Encoder::encode_bytes(const Record& input, size_t from, size_t to)
 	return encoded;
 }
 
-size_t
-Encoder::decode_size(const Record& metadata, size_t from)
+bool
+Encoder::decode_size(const Record& metadata, size_t& out_size, size_t from)
 {
 	size_t to = metadata.size();
 	size_t metadata_size = to - from;
 
 	if (from >= to || metadata_size < METADATA_SIZE)
-		throw Exception(
-		    "can't decode record size from metadata of size %zu from %zu to %zu",
-		    metadata.size(), from, to);
+		return false;
 
 	constexpr size_t bits = 8;
 	size_t size = 0;
@@ -52,7 +50,9 @@ Encoder::decode_size(const Record& metadata, size_t from)
 
 	if (size > 0)
 		--size;
-	return size;
+
+	out_size = size;
+	return true;
 }
 
 bool
@@ -70,17 +70,17 @@ Encoder::is_tombstone(const Record& metadata, size_t from)
 	return true;
 }
 
-Record
-Encoder::decode_bytes(const Record& encoded, size_t from, size_t to)
+bool
+Encoder::decode_bytes(const Record& encoded, Record& out_record, size_t from, size_t to)
 {
 	size_t record_size = decode_size(encoded, from);
 	from += METADATA_SIZE;
 	if (!(from < to && to < encoded.size()))
-		throw Exception(
-		    "can't decode bytes from encoding from %zu to %zu, expecting %zu bytes", from,
-		    to, record_size);
+		return false;
 
 	Record decoded(record_size);
 	std::copy(encoded.begin() + from, encoded.begin() + to, decoded.begin());
-	return decoded;
+	out_record = std::move(decoded);
+	
+	return true;
 }
