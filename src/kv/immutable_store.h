@@ -1,6 +1,8 @@
 #ifndef DRDB_IMMUTABLE_STORE_H
 #define DRDB_IMMUTABLE_STORE_H
 
+#include <memory>
+
 #include "../types.h"
 
 class Iterator;
