@@ -10,13 +10,11 @@ write_encoded_size(size_t size, std::vector<uint8_t>& result)
 	constexpr size_t bits = 8;
 	constexpr size_t mask = 0b11111111;
 
-	for (size_t i = 0; i < kv::Encoder::METADATA_SIZE; ++i, size >> bits)
+	for (size_t i = 0; i < Encoder::METADATA_SIZE; ++i, size >> bits)
 		result[i] = static_cast<uint8_t>(size & mask);
 }
 }  // namespace
 
-namespace kv
-{
 const std::vector<uint8_t> Encoder::TOMBSTONE_VALUE = {0x00, 0x00};
 
 std::vector<uint8_t>
@@ -86,4 +84,3 @@ Encoder::decode_bytes(const std::vector<uint8_t>& encoded, size_t from, size_t t
 	std::copy(encoded.begin() + from, encoded.begin() + to, decoded.begin());
 	return decoded;
 }
-}  // namespace kv

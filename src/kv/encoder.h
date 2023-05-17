@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <vector>
 
-namespace kv
-{
 class Encoder
 {
 public:
@@ -26,6 +24,5 @@ public:
 	static std::vector<uint8_t>
 	decode_bytes(const std::vector<uint8_t>& encoded, size_t from = 0, size_t to = -1);
 };
-}  // namespace kv
 
 #endif	// DRDB_ENCODER_H
