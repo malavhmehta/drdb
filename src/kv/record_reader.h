@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-#include "../types.h"
+#include "../record.h"
 
 class RecordReader
 {

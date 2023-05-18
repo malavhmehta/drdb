@@ -1,7 +1,7 @@
 #ifndef DRDB_RANGE_H
 #define DRDB_RANGE_H
 
-#include "../types.h"
+#include "../record.h"
 
 struct Bound
 {

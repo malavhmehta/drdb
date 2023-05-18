@@ -1,7 +1,7 @@
 #ifndef DRDB_ITERATOR_H
 #define DRDB_ITERATOR_H
 
-#include "../types.h"
+#include "../record.h"
 
 class Iterator
 {

@@ -5,7 +5,7 @@
 #include <queue>
 #include <utility>
 
-#include "../types.h"
+#include "../record.h"
 #include "iterator.h"
 
 class AggregateIterator : public Iterator

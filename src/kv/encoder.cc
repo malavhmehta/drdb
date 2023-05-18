@@ -7,10 +7,9 @@ namespace
 void
 write_encoded_size(size_t size, Record& result)
 {
-	constexpr size_t bits = 8;
 	constexpr size_t mask = 0b11111111;
 
-	for (size_t i = 0; i < Encoder::METADATA_SIZE; ++i, size >> bits)
+	for (size_t i = 0; i < Encoder::METADATA_SIZE; ++i, size >> BYTE_WIDTH)
 		result[i] = static_cast<Byte>(size & mask);
 }
 }  // namespace
@@ -43,10 +42,9 @@ Encoder::decode_size(const Record& metadata, size_t& out_size, size_t from)
 	if (from >= to || metadata_size < METADATA_SIZE)
 		return false;
 
-	constexpr size_t bits = 8;
 	size_t size = 0;
 	for (size_t i = from; i < from + METADATA_SIZE; ++i)
-		size = (size << bits) + metadata[i];
+		size = (size << BYTE_WIDTH) + metadata[i];
 
 	if (size > 0)
 		--size;
@@ -81,6 +79,6 @@ Encoder::decode_bytes(const Record& encoded, Record& out_record, size_t from, si
 	Record decoded(record_size);
 	std::copy(encoded.begin() + from, encoded.begin() + to, decoded.begin());
 	out_record = std::move(decoded);
-	
+
 	return true;
 }

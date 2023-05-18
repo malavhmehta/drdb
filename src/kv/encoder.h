@@ -1,7 +1,7 @@
 #ifndef DRDB_ENCODER_H
 #define DRDB_ENCODER_H
 
-#include "../types.h"
+#include "../record.h"
 
 class Encoder
 {

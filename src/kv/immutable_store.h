@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "../types.h"
+#include "../record.h"
 
 class Iterator;
 class Range;
