@@ -9,7 +9,7 @@ write_encoded_size(size_t size, Record& result)
 {
 	constexpr size_t mask = 0b11111111;
 
-	for (size_t i = 0; i < Encoder::METADATA_SIZE; ++i, size >> BYTE_WIDTH)
+	for (size_t i = 0; i < Encoder::METADATA_SIZE; ++i, size >>= BYTE_WIDTH)
 		result[i] = static_cast<Byte>(size & mask);
 }
 }  // namespace

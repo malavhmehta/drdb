@@ -4,16 +4,13 @@
 #include <map>
 #include <string>
 
-#include "../types.h"
+#include "../record.h"
 
 class MemTable
 {
 	std::map<Record, size_t> offset;
 
 public:
-	static bool
-	from_ss_table(const std::string& ss_table_file_name, const std::string& out_file_name);
-
 	explicit MemTable(const std::string& file_name);
 
 	[[nodiscard]] std::map<Record, size_t>::const_iterator

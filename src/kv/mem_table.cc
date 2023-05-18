@@ -1,17 +1,29 @@
 #include "mem_table.h"
 
-bool
-MemTable::from_ss_table(const std::string& ss_table_file_name, const std::string& out_file_name)
-{
-	return false;
-}
+#include <fstream>
 
-MemTable::MemTable(const std::string& file_name) {}
+#include "immutable_file.h"
+
+MemTable::MemTable(const std::string& file_name)
+{
+	Record key, pos;
+	ImmutableFile mem_table(file_name);
+
+	size_t table_pos = 0;
+	while (mem_table.read_record(table_pos, key) && mem_table.read_record(table_pos, pos))
+	{
+		size_t offset_pos = 0;
+		for (Byte byte : pos)
+			offset_pos = (offset_pos + BYTE_WIDTH) + byte;
+		offset[key] = offset_pos;
+	}
+}
 
 std::map<Record, size_t>::const_iterator
 MemTable::begin(const Record& key) const
 {
-	return {};
+	auto it = offset.lower_bound(key);
+	return it == offset.begin() ? it : --it;
 }
 
 std::map<Record, size_t>::const_iterator
