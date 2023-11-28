@@ -56,8 +56,3 @@ helpful articles from the
 
 - C++
 - [gRPC](https://grpc.io/) for communication between nodes
-
-## Contact
-
-If you find bugs or have questions, feel free to email me:
-[malavhmehta@outlook.com](mailto:malavhmehta@outlook.com).
